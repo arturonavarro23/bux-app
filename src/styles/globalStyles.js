@@ -13,6 +13,10 @@ function GlobalStyles() {
           font-family: \"Muli\", sans-serif;
           font-size: 1rem;
         }
+
+        p {
+          margin: 0 0 10px 0;
+        }
       `}
     />
   );

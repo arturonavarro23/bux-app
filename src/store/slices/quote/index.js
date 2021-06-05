@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   content: null,
-  loading: 'idle',
+  status: 'idle',
   error: null,
 };
 
@@ -11,14 +11,14 @@ const quote = createSlice({
   initialState,
   reducers: {
     setIsPending: (state) => {
-      state.loading = 'pending';
+      state.status = 'pending';
     },
     setQuoteContent: (state, { payload }) => {
-      state.loading = 'success';
+      state.status = 'success';
       state.content = payload;
     },
     setError: (state, { payload }) => {
-      state.loading = 'error';
+      state.status = 'error';
       state.error = payload;
     },
   },

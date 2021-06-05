@@ -1,41 +1,26 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import styled from '@emotion/styled';
-
-import { mqw } from 'styles/mq';
+import numeral from 'numeral';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { getCompany } from 'store/actions/company';
 import { getQuote } from 'store/actions/quote';
-import Container from 'components/common/container';
+import { getChangeStatus } from 'utils/quoteUtils';
+import { changeStatus } from 'constants/enums';
 
-const Content = styled.div`
-  display: flex;
-  ${mqw({
-    flexDirection: ['column', 'column', 'row'],
-  })}
-`;
-
-const TitleContainer = styled.div`
-  color: #fff;
-  background: rgb(201, 51, 81);
-  background: linear-gradient(
-    90deg,
-    rgba(201, 51, 81, 1) 22%,
-    rgba(255, 60, 100, 0.896796218487395) 59%
-  );
-  padding: 1.875rem;
-`;
-
-const ProfileContainer = styled.div`
-  ${mqw({
-    flex: ['unset', 2, 2, 3],
-  })}
-`;
-const QuoteContainer = styled.div`
-  ${mqw({
-    flex: ['unset', 2],
-  })}
-`;
+import { Profile } from './profile';
+import { Quote } from './quote';
+import {
+  TitleContainer,
+  TitleInfo,
+  Title,
+  QuoteSummary,
+  Container,
+  Content,
+  ProfileContainer,
+  QuoteContainer,
+} from './styles';
 
 export function Company() {
   const { symbol } = useParams();
@@ -44,21 +29,56 @@ export function Company() {
     company: state.company,
     quote: state.quote,
   }));
+  const quoteChangeStatus = getChangeStatus(quote.content?.change || 0);
 
   useEffect(() => {
     dispatch(getCompany(symbol));
     dispatch(getQuote(symbol));
   }, [symbol, dispatch]);
 
+  if (company.status === 'error' || quote.status === 'error') {
+    return 'Error';
+  }
+
+  if (company.status !== 'success' || quote.status !== 'success') {
+    return null;
+  }
+
   return (
     <>
       <TitleContainer>
-        <Container>Content</Container>
+        <TitleInfo>
+          <Title>
+            {company.content?.companyName}
+            <span>({company.content?.symbol})</span>
+            <small>{company.content?.exchange}</small>
+          </Title>
+          <QuoteSummary changeStatus={quoteChangeStatus}>
+            <span className="close">
+              {numeral(quote.content?.close).format('$0.00')}
+            </span>
+            <span className="change">
+              {quoteChangeStatus === changeStatus.INCREMENT && (
+                <FontAwesomeIcon icon={faCaretUp} />
+              )}
+              {quoteChangeStatus === changeStatus.DECREASE && (
+                <FontAwesomeIcon icon={faCaretDown} />
+              )}
+              {quote.content?.change}(
+              {numeral(quote.content?.changePercent).format('0.00%')})
+            </span>
+            <small>Data as of {quote.content?.latestTime}</small>
+          </QuoteSummary>
+        </TitleInfo>
       </TitleContainer>
       <Container>
         <Content>
-          <ProfileContainer>Company container</ProfileContainer>
-          <QuoteContainer>Quote container</QuoteContainer>
+          <ProfileContainer>
+            <Profile content={company.content} />
+          </ProfileContainer>
+          <QuoteContainer>
+            <Quote />
+          </QuoteContainer>
         </Content>
       </Container>
     </>
