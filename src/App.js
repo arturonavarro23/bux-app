@@ -4,6 +4,7 @@ import { ThemeProvider } from '@emotion/react';
 import { Provider } from 'react-redux';
 
 import Router from 'components/navigation/router';
+import FavoritesModal from 'components/common/favoritesModal/FavoritesModal';
 
 import setupInterceptors from 'api/interceptors';
 import createStore from 'store';
@@ -22,6 +23,7 @@ function App() {
           <GlobalStyles />
           <BrowserRouter>
             <Router />
+            <FavoritesModal></FavoritesModal>
           </BrowserRouter>
         </ThemeProvider>
       </Suspense>

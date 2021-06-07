@@ -32,7 +32,7 @@ export function Profile({ content }) {
     <ProfileContent>
       <h3>Profile</h3>
       <div className="content">
-        <p>
+        <p className="content__item">
           <small>
             <FontAwesomeIcon icon={faMapPin} />
             Address
@@ -40,7 +40,7 @@ export function Profile({ content }) {
           <span>{street}</span>
           <span>{`${place} ${zip}`}</span>
         </p>
-        <p>
+        <p className="content__item">
           <small>
             <FontAwesomeIcon icon={faPhone} />
             Phone
@@ -49,7 +49,7 @@ export function Profile({ content }) {
         </p>
       </div>
       <div className="content">
-        <p>
+        <p className="content__item">
           <small>
             <FontAwesomeIcon icon={faLink} />
             Website
@@ -58,7 +58,7 @@ export function Profile({ content }) {
             {website}
           </a>
         </p>
-        <p>
+        <p className="content__item">
           <small>
             <FontAwesomeIcon icon={faIndustry} />
             Industry
@@ -67,7 +67,7 @@ export function Profile({ content }) {
         </p>
       </div>
       <div className="content">
-        <p>
+        <p className="content__item">
           <small>
             <FontAwesomeIcon icon={faUser} />
             Employees

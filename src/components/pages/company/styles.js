@@ -9,7 +9,7 @@ export { Container };
 export const Content = styled.div`
   display: flex;
   ${mqw({
-    flexDirection: ['column', 'column', 'row'],
+    flexDirection: ['column-reverse', 'column-reverse', 'row'],
   })}
 `;
 
@@ -54,6 +54,14 @@ export const Title = styled.h1((props) =>
     '& small': {
       display: 'block',
       fontSize: '45%',
+    },
+    '& .favorite': {
+      cursor: 'pointer',
+      fontSize: '1.25rem',
+      margin: '0 0 4px 5px',
+      '&.active': {
+        color: props.theme.palette.yellow,
+      },
     },
   }),
 );

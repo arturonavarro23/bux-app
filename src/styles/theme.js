@@ -7,6 +7,8 @@ const palette = {
   red: '#fd6e70',
   info: '#3677a8',
   grey: '#555555',
+  lightGrey: '#E3E4E6',
+  yellow: '#ffb26b',
 };
 
 const typography = {

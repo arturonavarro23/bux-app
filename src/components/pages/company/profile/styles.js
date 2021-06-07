@@ -10,7 +10,7 @@ export const ProfileContent = styled.div((props) =>
       display: 'flex',
       flexDirection: ['column', 'row'],
       justifyContent: ['flex-start', 'space-between'],
-      '& p': {
+      '&__item': {
         width: ['100%', '45%'],
         marginRight: [0, '15px'],
       },

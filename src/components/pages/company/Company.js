@@ -3,9 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import numeral from 'numeral';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCaretDown,
+  faCaretUp,
+  faStar,
+} from '@fortawesome/free-solid-svg-icons';
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { getCompany } from 'store/actions/company';
 import { getQuote } from 'store/actions/quote';
+import { toogleFavorite } from 'store/actions/favorites';
+import { selectCompanyInfo } from 'store/selectors';
 import { getChangeStatus } from 'utils/quoteUtils';
 import { changeStatus } from 'constants/enums';
 
@@ -25,10 +32,7 @@ import {
 export function Company() {
   const { symbol } = useParams();
   const dispatch = useDispatch();
-  const { company, quote } = useSelector((state) => ({
-    company: state.company,
-    quote: state.quote,
-  }));
+  const { company, quote, isFavorite } = useSelector(selectCompanyInfo);
   const quoteChangeStatus = getChangeStatus(quote.content?.change || 0);
 
   useEffect(() => {
@@ -51,6 +55,11 @@ export function Company() {
           <Title>
             {company.content?.companyName}
             <span>({company.content?.symbol})</span>
+            <FontAwesomeIcon
+              className={`favorite ${isFavorite ? 'active' : ''}`}
+              icon={isFavorite ? faStar : faStarRegular}
+              onClick={() => dispatch(toogleFavorite(company.content))}
+            />
             <small>{company.content?.exchange}</small>
           </Title>
           <QuoteSummary changeStatus={quoteChangeStatus}>
@@ -77,7 +86,7 @@ export function Company() {
             <Profile content={company.content} />
           </ProfileContainer>
           <QuoteContainer>
-            <Quote />
+            <Quote content={quote.content} />
           </QuoteContainer>
         </Content>
       </Container>

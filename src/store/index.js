@@ -4,14 +4,18 @@ import thunkMiddleware from 'redux-thunk';
 
 import rootReducer from './reducers';
 
-export default function configureStore(preloadedState) {
+export default function configureStore() {
   const middlewares = [thunkMiddleware];
   const middlewareEnhancer = applyMiddleware(...middlewares);
 
   const enhancers = [middlewareEnhancer];
   const composedEnhancers = composeWithDevTools(...enhancers);
 
-  const store = createStore(rootReducer, preloadedState, composedEnhancers);
+  const favorites = {
+    items: JSON.parse(localStorage.getItem('favorites')) || [],
+  };
+
+  const store = createStore(rootReducer, { favorites }, composedEnhancers);
 
   if (process.env.NODE_ENV !== 'production' && module.hot) {
     module.hot.accept('./reducers', () => store.replaceReducer(rootReducer));
