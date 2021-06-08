@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   results: [],
-  loading: 'idle',
+  status: 'idle',
 };
 
 const search = createSlice({
@@ -10,10 +10,15 @@ const search = createSlice({
   initialState,
   reducers: {
     setIsPending: (state) => {
-      state.loading = 'pending';
+      state.status = 'pending';
+    },
+    setResults: (state, actions) => {
+      state.status = 'success';
+      state.results = actions.payload;
     },
     setError: (state) => {
-      state.loading = 'idle';
+      state.status = 'error';
+      state.results = [];
     },
   },
 });

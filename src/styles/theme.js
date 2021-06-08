@@ -8,6 +8,7 @@ const palette = {
   info: '#3677a8',
   grey: '#555555',
   lightGrey: '#E3E4E6',
+  lighterGrey: '#e2e8f0',
   yellow: '#ffb26b',
 };
 

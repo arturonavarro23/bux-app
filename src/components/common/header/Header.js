@@ -8,6 +8,7 @@ import { mqw } from 'styles/mq';
 import { ReactComponent as BuxLogo } from 'img/bux-logo.svg';
 import { openModal } from 'store/actions/favorites';
 import Container from '../container';
+import { Link } from 'react-router-dom';
 
 const HeaderTag = styled.header`
   background: ${(props) => props.theme.palette.secondary};
@@ -66,7 +67,9 @@ function Header() {
     <>
       <HeaderTag>
         <HeaderWrapper>
-          <Logo />
+          <Link to="/">
+            <Logo data-testid="bux-logo" />
+          </Link>
           <Favorites onClick={onClick}>
             <Start
               active={hasFavorites}

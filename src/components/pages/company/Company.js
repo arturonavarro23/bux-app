@@ -15,7 +15,7 @@ import { toogleFavorite } from 'store/actions/favorites';
 import { selectCompanyInfo } from 'store/selectors';
 import { getChangeStatus } from 'utils/quoteUtils';
 import { changeStatus } from 'constants/enums';
-
+import NotFound from '../notFound';
 import { Profile } from './profile';
 import { Quote } from './quote';
 import {
@@ -41,7 +41,7 @@ export function Company() {
   }, [symbol, dispatch]);
 
   if (company.status === 'error' || quote.status === 'error') {
-    return 'Error';
+    return <NotFound />;
   }
 
   if (company.status !== 'success' || quote.status !== 'success') {

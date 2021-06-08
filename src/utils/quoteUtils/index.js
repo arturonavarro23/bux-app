@@ -11,3 +11,15 @@ export function getChangeStatus(change) {
 
   return changeStatus.NO_CHANGE;
 }
+
+export function backendQuoteToFrontend(quote) {
+  return {
+    change: quote?.change,
+    close: quote?.close || quote?.iexClose,
+    changePercent: quote?.changePercent,
+    open: quote?.open || quote?.iexOpen,
+    volume: quote?.volume || quote?.iexOpen,
+    high: quote?.high,
+    low: quote?.low,
+  };
+}
