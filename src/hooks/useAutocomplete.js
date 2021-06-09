@@ -11,6 +11,7 @@ export default function useAutocomplete() {
 
   useEffect(() => {
     if (debouncedSearchTerm) {
+      console.log(debouncedSearchTerm);
       dispatch(search(debouncedSearchTerm));
     }
   }, [debouncedSearchTerm, dispatch]);

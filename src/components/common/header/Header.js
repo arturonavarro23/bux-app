@@ -34,7 +34,6 @@ function Header() {
         onTermChange('');
       } else {
         const symbol = pathname.split('/')[2];
-        console.log('enter', pathname, pathRef.current, symbol);
         const option = options.find((o) => o.value === symbol);
         onTermChange(option?.label || '');
       }

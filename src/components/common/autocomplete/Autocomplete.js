@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { arrayOf, func, shape, string } from 'prop-types';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { useKeyPress } from 'hooks';
 import {
   AutocompleteWrapper,
   SearchIcon,
@@ -16,33 +17,24 @@ export function Autocomplete({
   ...rest
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const isOpenRef = useRef(null);
+  const [active, setActive] = useState(null);
+  const downPress = useKeyPress('ArrowDown');
+  const upPress = useKeyPress('ArrowUp');
+  const enterPress = useKeyPress('Enter');
   const autocompleteRef = useRef(null);
   const optionsRef = useRef(null);
 
-  useEffect(() => {
-    isOpenRef.current = isOpen;
-  }, [isOpen]);
+  const selectItem = useCallback(
+    (item) => {
+      setIsOpen(false);
+      if (onSelectItem) {
+        onSelectItem(item);
+      }
+    },
+    [onSelectItem],
+  );
 
-  useEffect(() => {
-    window.document.addEventListener('click', handleBodyClick);
-    return () => {
-      window.document.removeEventListener('click', handleBodyClick);
-    };
-  }, []);
-
-  const onFocus = () => {
-    setIsOpen(true);
-  };
-
-  const onSelect = (item) => () => {
-    setIsOpen(false);
-    if (onSelectItem) {
-      onSelectItem(item);
-    }
-  };
-
-  function handleBodyClick(e) {
+  const handleBodyClick = useCallback((e) => {
     if (
       autocompleteRef.current &&
       !autocompleteRef.current.contains(e.target) &&
@@ -51,17 +43,71 @@ export function Autocomplete({
     ) {
       setIsOpen(false);
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    window.document.addEventListener('click', handleBodyClick);
+    return () => {
+      window.document.removeEventListener('click', handleBodyClick);
+    };
+  }, [handleBodyClick]);
+
+  useEffect(() => {
+    if (options.length > 0 && isOpen && downPress) {
+      setActive((prevActive) =>
+        prevActive === null || prevActive === options.length - 1
+          ? 0
+          : prevActive + 1,
+      );
+    }
+  }, [downPress, options, isOpen]);
+
+  useEffect(() => {
+    if (options.length > 0 && isOpen && upPress) {
+      setActive((prevActive) =>
+        prevActive === 0 || prevActive === null
+          ? options.length - 1
+          : prevActive - 1,
+      );
+    }
+  }, [upPress, options, isOpen]);
+
+  useEffect(() => {
+    if (options.length > 0 && enterPress && enterPress && active !== null) {
+      selectItem(options[active]);
+    }
+  }, [enterPress, options, isOpen, selectItem, active]);
+
+  useEffect(() => {
+    if (isOpen && active !== null) {
+      const element = optionsRef.current.querySelector(
+        '.options__item--active',
+      );
+      optionsRef.current.scrollTo(0, element.offsetTop - element.offsetHeight);
+    }
+  }, [active, isOpen]);
+
+  useEffect(() => {
+    setActive(null);
+  }, [options]);
+
+  const onChangeInput = (e) => {
+    setIsOpen(e.target.value.length > 0);
+    onChange(e);
+  };
+
+  const onSelect = (item) => () => {
+    selectItem(item);
+  };
 
   return (
     <>
       <AutocompleteWrapper ref={autocompleteRef}>
         <Input
           type="text"
-          onChange={onChange}
+          onChange={onChangeInput}
           autoComplete="off"
           placeholder="Eg. Apple"
-          onFocus={onFocus}
           {...rest}
           value={inputValue}
         />
@@ -78,9 +124,15 @@ export function Autocomplete({
             width: autocompleteRef.current.offsetWidth,
           }}
         >
-          <ul className="options">
-            {options.map((o) => (
-              <li className="options__item" key={o.value} onClick={onSelect(o)}>
+          <ul className="options" role="listbox">
+            {options.map((o, i) => (
+              <li
+                className={`options__item ${
+                  active === i ? 'options__item--active' : ''
+                }`}
+                key={o.value}
+                onClick={onSelect(o)}
+              >
                 {o.label}
               </li>
             ))}
@@ -93,7 +145,6 @@ export function Autocomplete({
 
 Autocomplete.propTypes = {
   inputValue: string.isRequired,
-  value: string,
   onChange: func.isRequired,
   options: arrayOf(
     shape({
@@ -106,7 +157,6 @@ Autocomplete.propTypes = {
 
 Autocomplete.defaultProps = {
   options: [],
-  value: '',
   onSelectItem: null,
 };
 

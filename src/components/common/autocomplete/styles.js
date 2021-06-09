@@ -42,7 +42,7 @@ export const OptionsWrapper = styled.div((props) =>
         cursor: 'pointer',
         borderBottom: `solid 1px ${props.theme.palette.lightGrey}`,
         padding: '10px 15px',
-        '&:hover': {
+        '&--active, &:hover': {
           backgroundColor: props.theme.palette.lightGrey,
         },
       },
