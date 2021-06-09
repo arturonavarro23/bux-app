@@ -5,6 +5,7 @@ import { mqw } from 'styles/mq';
 export const AutocompleteWrapper = styled.div`
   display: flex;
   align-items: center;
+  background-color: ${(props) => props.theme.palette.white};
   border: solid 1px ${(props) => props.theme.palette.lighterGrey};
   border-radius: 6px;
   width: 100%;
@@ -15,6 +16,7 @@ export const SearchIcon = styled(FontAwesomeIcon)`
 `;
 
 export const Input = styled.input`
+  border-radius: 6px;
   padding: 10px 15px;
   border: 0;
   outline: none;

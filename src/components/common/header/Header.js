@@ -1,63 +1,51 @@
-import { createElement } from 'react';
-import styled from '@emotion/styled';
+import { useEffect, useRef } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useAutocomplete } from 'hooks';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-import { mqw } from 'styles/mq';
-import { ReactComponent as BuxLogo } from 'img/bux-logo.svg';
 import { openModal } from 'store/actions/favorites';
-import Container from '../container';
-import { Link } from 'react-router-dom';
-
-const HeaderTag = styled.header`
-  background: ${(props) => props.theme.palette.secondary};
-`;
-
-const HeaderWrapper = styled(Container)(
-  mqw({
-    position: 'relative',
-    padding: '30px 15px',
-    flexDirection: ['column', 'row', 'row'],
-  }),
-);
-
-const Logo = styled(BuxLogo)(
-  mqw({
-    height: 40,
-  }),
-);
-
-const Favorites = styled.div`
-  ${mqw({
-    cursor: 'pointer',
-    position: 'absolute',
-    right: ['15px', '20px', 0],
-    fontSize: '1.8rem',
-    '& span': {
-      display: ['none', 'inline'],
-    },
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-  })}
-`;
-
-const Start = styled(({ active, children, ...props }) =>
-  createElement(FontAwesomeIcon, props, children),
-)((props) =>
-  mqw({
-    color: props.active
-      ? props.theme.palette.yellow
-      : props.theme.palette.black,
-    cursor: 'pointer',
-    marginLeft: 5,
-  }),
-);
+import { Autocomplete } from '../autocomplete';
+import {
+  HeaderTag,
+  HeaderWrapper,
+  LogoLink,
+  Logo,
+  AutocompleteContainer,
+  Favorites,
+  Start,
+} from './styles';
 
 function Header() {
   const dispatch = useDispatch();
+  const { push } = useHistory();
+  const pathRef = useRef(null);
+  const { pathname } = useLocation();
   const hasFavorites = useSelector((state) => state.favorites.items.length > 0);
+  const { term, onTermChange, results } = useAutocomplete();
+  const options = results.map((o) => ({
+    value: o.symbol,
+    label: o.name,
+  }));
+
+  useEffect(() => {
+    if (pathname !== pathRef.current) {
+      if (pathname === '/') {
+        onTermChange('');
+      } else {
+        const symbol = pathname.split('/')[2];
+        console.log('enter', pathname, pathRef.current, symbol);
+        const option = options.find((o) => o.value === symbol);
+        onTermChange(option?.label || '');
+      }
+
+      pathRef.current = pathname;
+    }
+  }, [pathname, onTermChange, options]);
+
+  const onSelectItem = (item) => {
+    push(`/company/${item.value}`);
+  };
 
   const onClick = () => {
     dispatch(openModal());
@@ -67,9 +55,20 @@ function Header() {
     <>
       <HeaderTag>
         <HeaderWrapper>
-          <Link to="/">
+          <LogoLink to="/" isHomePage={pathname === '/'}>
             <Logo data-testid="bux-logo" />
-          </Link>
+          </LogoLink>
+          {pathname !== '/' && (
+            <AutocompleteContainer>
+              <Autocomplete
+                name="search"
+                onChange={(e) => onTermChange(e.target.value)}
+                inputValue={term}
+                options={options}
+                onSelectItem={onSelectItem}
+              />
+            </AutocompleteContainer>
+          )}
           <Favorites onClick={onClick}>
             <Start
               active={hasFavorites}

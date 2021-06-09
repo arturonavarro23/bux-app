@@ -21,7 +21,7 @@ function Home() {
   const { term, onTermChange, results } = useAutocomplete();
   const options = results.map((o) => ({
     value: o.symbol,
-    label: `${o.name} (${o.symbol})`,
+    label: o.name,
   }));
 
   const onSelectItem = (item) => {

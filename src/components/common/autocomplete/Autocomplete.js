@@ -44,6 +44,7 @@ export function Autocomplete({
 
   function handleBodyClick(e) {
     if (
+      autocompleteRef.current &&
       !autocompleteRef.current.contains(e.target) &&
       optionsRef.current &&
       !optionsRef.current.contains(e.target)
@@ -78,19 +79,11 @@ export function Autocomplete({
           }}
         >
           <ul className="options">
-            {options.length > 0 ? (
-              options.map((o) => (
-                <li
-                  className="options__item"
-                  key={o.value}
-                  onClick={onSelect(o)}
-                >
-                  {o.label}
-                </li>
-              ))
-            ) : (
-              <li className="options__no-items">No options</li>
-            )}
+            {options.map((o) => (
+              <li className="options__item" key={o.value} onClick={onSelect(o)}>
+                {o.label}
+              </li>
+            ))}
           </ul>
         </OptionsWrapper>
       )}
