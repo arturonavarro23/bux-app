@@ -1,4 +1,5 @@
 import { number, shape, string } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import numeral from 'numeral';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -13,6 +14,7 @@ import { Description } from '../description';
 import { ProfileContent } from './styles';
 
 export function Profile({ content }) {
+  const { t } = useTranslation();
   const {
     address,
     address2,
@@ -30,12 +32,12 @@ export function Profile({ content }) {
 
   return (
     <ProfileContent>
-      <h3>Profile</h3>
+      <h3>{t('company.profile')}</h3>
       <div className="content">
         <p className="content__item">
           <small>
             <FontAwesomeIcon icon={faMapPin} />
-            Address
+            {t('company.address')}
           </small>
           <span>{street}</span>
           <span>{`${place} ${zip}`}</span>
@@ -43,7 +45,7 @@ export function Profile({ content }) {
         <p className="content__item">
           <small>
             <FontAwesomeIcon icon={faPhone} />
-            Phone
+            {t('company.phone')}
           </small>
           <span>{phone}</span>
         </p>
@@ -52,7 +54,7 @@ export function Profile({ content }) {
         <p className="content__item">
           <small>
             <FontAwesomeIcon icon={faLink} />
-            Website
+            {t('company.website')}
           </small>
           <a href={website} target="_blank" rel="noreferrer">
             {website}
@@ -61,7 +63,7 @@ export function Profile({ content }) {
         <p className="content__item">
           <small>
             <FontAwesomeIcon icon={faIndustry} />
-            Industry
+            {t('company.industry')}
           </small>
           <span>{industry}</span>
         </p>
@@ -70,12 +72,12 @@ export function Profile({ content }) {
         <p className="content__item">
           <small>
             <FontAwesomeIcon icon={faUser} />
-            Employees
+            {t('company.employees')}
           </small>
           <span>{numeral(employees).format('0.0a')}</span>
         </p>
       </div>
-      <Description text={description} />
+      {description && <Description text={description} />}
     </ProfileContent>
   );
 }

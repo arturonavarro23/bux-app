@@ -1,33 +1,35 @@
+import { useTranslation } from 'react-i18next';
 import { number, shape } from 'prop-types';
 import numeral from 'numeral';
 
 import { QuoteWrapper } from './styles';
 function Quote({ content }) {
+  const { t } = useTranslation();
   const { open, close, volume, high, low } = content || {};
   return (
     <QuoteWrapper>
-      <h3>Quote</h3>
+      <h3>{'company.quote'}</h3>
       <div className="historical">
         <div className="historical__item">
-          <small>Day’s Open</small>
+          <small>{t('company.days.open')}</small>
           <span>{numeral(open).format('$0.0')}</span>
         </div>
         <div className="historical__item">
-          <small>Closing Price</small>
+          <small>{t('company.closing.price')}</small>
           <span>{numeral(close).format('$0.0')}</span>
         </div>
         <div className="historical__item">
-          <small>Volume</small>
+          <small>{t('company.volume')}</small>
           <span>{numeral(volume).format('0.0a').toUpperCase()}</span>
         </div>
       </div>
       <div className="historical">
         <div className="historical__item">
-          <small>Intraday High</small>
+          <small>{t('company.intraday.high')}</small>
           <span>{numeral(high).format('$0.0')}</span>
         </div>
         <div className="historical__item">
-          <small>Intraday Low</small>
+          <small>{t('company.intraday.low')}</small>
           <span>{numeral(low).format('$0.0')}</span>
         </div>
       </div>

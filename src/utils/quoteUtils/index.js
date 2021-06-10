@@ -14,11 +14,12 @@ export function getChangeStatus(change) {
 
 export function backendQuoteToFrontend(quote) {
   return {
+    latestTime: quote?.latestTime || '',
     change: quote?.change,
     close: quote?.close || quote?.iexClose,
     changePercent: quote?.changePercent,
     open: quote?.open || quote?.iexOpen,
-    volume: quote?.volume || quote?.iexOpen,
+    volume: quote?.volume,
     high: quote?.high,
     low: quote?.low,
   };

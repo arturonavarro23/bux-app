@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+export const initialState = {
   content: null,
   status: 'idle',
   error: null,
@@ -25,5 +25,5 @@ const quote = createSlice({
 });
 
 export const actions = quote.actions;
-
+export const reducer = quote.reducer;
 export default quote.reducer;

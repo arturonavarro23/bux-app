@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import { string } from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +18,7 @@ const DescriptionWrapper = styled.p`
 `;
 
 export function Description({ text }) {
+  const { t } = useTranslation();
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export function Description({ text }) {
     <DescriptionWrapper>
       <small>
         <FontAwesomeIcon icon={faBookOpen} />
-        Description
+        {t('company.description')}
       </small>
       {showFullDescription ? (
         <>

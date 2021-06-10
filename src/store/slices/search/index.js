@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+export const initialState = {
   results: [],
   status: 'idle',
 };
@@ -24,5 +24,6 @@ const search = createSlice({
 });
 
 export const actions = search.actions;
+export const reducer = search.reducer;
 
 export default search.reducer;

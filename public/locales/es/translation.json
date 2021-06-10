@@ -1,4 +1,19 @@
 {
-  "seach.find.symbol": "Busca un simbolo",
+  "home.find.symbol": "Busca un simbolo",
+  "header.favorites": "Favoritos",
+  "company.data.as": "Datos al {{date}}",
+  "company.profile": "Perfil",
+  "company.address": "Dirección",
+  "company.phone": "Teléfono",
+  "company.website": "Sitio web",
+  "company.industry": "Industria",
+  "company.employees": "Empleados",
+  "company.description": "Descripción",
+  "company.quote": "Cotización",
+  "company.days.open": "Abierto del dia",
+  "company.closing.price": "Precio de cierre",
+  "company.volume": "Volumen",
+  "company.intraday.high": "Precio más alto intradiario",
+  "company.intraday.low": "Precio más bajo intradiario.",
   "404.notfound": "404 No encontrado"
 }

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useAutocomplete } from 'hooks';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
@@ -17,6 +18,7 @@ import {
 } from './styles';
 
 function Header() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { push } = useHistory();
   const pathRef = useRef(null);
@@ -72,7 +74,7 @@ function Header() {
             <Start
               active={hasFavorites}
               icon={hasFavorites ? faStar : faStarRegular}
-              alt="Favorites"
+              alt={t('header.favorites')}
             />
           </Favorites>
         </HeaderWrapper>

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import numeral from 'numeral';
@@ -30,6 +31,7 @@ import {
 } from './styles';
 
 export function Company() {
+  const { t } = useTranslation();
   const { symbol } = useParams();
   const dispatch = useDispatch();
   const { company, quote, isFavorite } = useSelector(selectCompanyInfo);
@@ -76,7 +78,9 @@ export function Company() {
               {quote.content?.change}(
               {numeral(quote.content?.changePercent).format('0.00%')})
             </span>
-            <small>Data as of {quote.content?.latestTime}</small>
+            <small>
+              {t('company.data.as', { date: quote.content?.latestTime })}
+            </small>
           </QuoteSummary>
         </TitleInfo>
       </TitleContainer>

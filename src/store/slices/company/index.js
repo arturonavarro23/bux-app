@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+export const initialState = {
   content: null,
   status: 'idle',
   error: null,
@@ -25,5 +25,6 @@ const company = createSlice({
 });
 
 export const actions = company.actions;
+export const reducer = company.reducer;
 
 export default company.reducer;

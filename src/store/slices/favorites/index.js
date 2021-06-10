@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+export const initialState = {
   items: [],
   modalIsOpen: false,
 };
@@ -22,5 +22,6 @@ const favorites = createSlice({
 });
 
 export const actions = favorites.actions;
+export const reducer = favorites.reducer;
 
 export default favorites.reducer;

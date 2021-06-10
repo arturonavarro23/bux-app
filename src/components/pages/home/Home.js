@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 import Container from 'components/common/container';
 import Autocomplete from 'components/common/autocomplete';
@@ -17,6 +18,7 @@ const HomeWrapper = styled(Container)`
 `;
 
 function Home() {
+  const { t } = useTranslation();
   const history = useHistory();
   const { term, onTermChange, results } = useAutocomplete();
   const options = results.map((o) => ({
@@ -30,7 +32,7 @@ function Home() {
 
   return (
     <HomeWrapper>
-      <h1>Find a symbol</h1>
+      <h1>{t('home.find.symbol')}</h1>
       <div className="autocomplete-container">
         <Autocomplete
           name="search"

@@ -13,7 +13,7 @@ export const search = (term) => async (dispatch) => {
     });
     dispatch(actions.setResults(data));
   } catch (e) {
-    dispatch(actions.setError(e));
+    dispatch(actions.setError());
   }
 };
 
