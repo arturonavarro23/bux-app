@@ -13,6 +13,7 @@ The Bux App is a tool to search companies in order to review their basic details
 
 - Code coverage
 - A better way to explain to the user how to find the favorite companies
+- A better distribution of the company info
 - Autocomplete functionality
 - Add a skeleton spinner in the Profile page
 
