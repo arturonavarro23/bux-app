@@ -31,26 +31,14 @@ export function Description({ text }) {
         <FontAwesomeIcon icon={faBookOpen} />
         {t('company.description')}
       </small>
-      {showFullDescription ? (
-        <>
-          {text}
-          <span
-            onClick={() => setShowFullDescription(false)}
-            className="toggle-info"
-          >
-            ...Show less
-          </span>
-        </>
-      ) : (
-        <>
-          {text.slice(0, 300)}{' '}
-          <span
-            onClick={() => setShowFullDescription(true)}
-            className="toggle-info"
-          >
-            ...Show more
-          </span>
-        </>
+      {showFullDescription ? text : text.slice(0, 300)}
+      {text.length > MAX_DESCRIPTION_CHARS && (
+        <span
+          onClick={() => setShowFullDescription((prev) => !prev)}
+          className="toggle-info"
+        >
+          {showFullDescription ? '...Show less' : '...Show more'}
+        </span>
       )}
     </DescriptionWrapper>
   );

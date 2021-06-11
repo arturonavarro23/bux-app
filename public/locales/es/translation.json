@@ -15,5 +15,7 @@
   "company.volume": "Volumen",
   "company.intraday.high": "Precio más alto intradiario",
   "company.intraday.low": "Precio más bajo intradiario.",
+  "something.wrong": "Ocurrio algo inesperado:",
+  "try.again": "Intentalo nuevamente",
   "404.notfound": "404 No encontrado"
 }

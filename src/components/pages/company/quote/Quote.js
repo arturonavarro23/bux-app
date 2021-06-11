@@ -8,7 +8,7 @@ function Quote({ content }) {
   const { open, close, volume, high, low } = content || {};
   return (
     <QuoteWrapper>
-      <h3>{'company.quote'}</h3>
+      <h3>{t('company.quote')}</h3>
       <div className="historical">
         <div className="historical__item">
           <small>{t('company.days.open')}</small>

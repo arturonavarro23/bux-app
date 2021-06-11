@@ -90,7 +90,15 @@ export const Head = styled(({ children, className, showCloseIcon }) => {
   return (
     <div className={className}>
       {children}
-      {showCloseIcon && <FontAwesomeIcon onClick={onClose} icon={faTimes} />}
+      {showCloseIcon && (
+        <FontAwesomeIcon
+          onClick={onClose}
+          icon={faTimes}
+          aria-label="close"
+          role="button"
+          aria-hidden="false"
+        />
+      )}
     </div>
   );
 })`

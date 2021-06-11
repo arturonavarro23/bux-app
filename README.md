@@ -1,6 +1,20 @@
 # Bux App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Bux App is a tool to search companies in order to review their basic details and the current stock price.
+
+**Features:**
+1.- Autocomplete to search the companies.
+2.- Favorites modal.
+3.- Profile Page
+4.- Internationalization
+
+**Things to improve:**
+1.- Code coverage
+2.- A better way to explain to the user how to find the favorite companies
+3.- Autocomplete functionality
+4.- Add a skeleton spinner in the Profile page
+
+**Note:**This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 

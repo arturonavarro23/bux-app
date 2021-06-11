@@ -15,5 +15,7 @@
   "company.volume": "Volume",
   "company.intraday.high": "Intraday High",
   "company.intraday.low": "Intraday Low",
+  "something.wrong": "Something went wrong:",
+  "try.again": "Try again",
   "404.notfound": "404 Not found"
 }

@@ -11,6 +11,7 @@ export const search = (term) => async (dispatch) => {
     const { data } = await api.get(`/keyword/${term}`, {
       baseURL: process.env.REACT_APP_BACKEND_SEARCH,
     });
+
     dispatch(actions.setResults(data));
   } catch (e) {
     dispatch(actions.setError());

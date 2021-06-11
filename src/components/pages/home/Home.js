@@ -17,7 +17,7 @@ const HomeWrapper = styled(Container)`
   })}
 `;
 
-function Home() {
+export function Home() {
   const { t } = useTranslation();
   const history = useHistory();
   const { term, onTermChange, results } = useAutocomplete();

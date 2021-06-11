@@ -2,9 +2,11 @@ import { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
 import { Provider } from 'react-redux';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import Router from 'components/navigation/router';
-import FavoritesModal from 'components/common/favoritesModal/FavoritesModal';
+import FavoritesModal from 'components/common/favoritesModal';
+import ErrorFallback from 'components/common/errorFallback';
 
 import setupInterceptors from 'api/interceptors';
 import createStore from 'store';
@@ -22,7 +24,12 @@ function App() {
         <ThemeProvider theme={theme}>
           <GlobalStyles />
           <BrowserRouter>
-            <Router />
+            <ErrorBoundary
+              FallbackComponent={ErrorFallback}
+              onReset={() => window.reload()}
+            >
+              <Router />
+            </ErrorBoundary>
             <FavoritesModal></FavoritesModal>
           </BrowserRouter>
         </ThemeProvider>
